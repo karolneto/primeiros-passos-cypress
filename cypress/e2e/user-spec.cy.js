@@ -13,7 +13,10 @@ const selectorsList = {
   firstNameField: "[name='firstName']",
   midleNameField: "[name='middleName']",
   lastNameField: "[name='lastName']",
-  genericField: ".oxd-input--active"
+  genericField: ".oxd-input--active",
+  dateField: "[placeholder='yyyy-dd-mm']",
+  dataCloseButton: ".--close",
+  submittButon: "[type='submit']"
 }
 
   it.only('User info Update - Success', () => {
@@ -25,10 +28,19 @@ const selectorsList = {
     cy.location('pathname').should('equal', '/web/index.php/dashboard/index')
     cy.get(selectorsList.dashboardGrid)
     cy.get(selectorsList.myInfoButton).click()
-    cy.get(selectorsList.firstNameField).clear().type("Karoline")
-    cy.get(selectorsList.midleNameField).clear().type("Sperandio Pimenta")
-    cy.get(selectorsList.lastNameField).clear().type("Neto")
+    cy.get(selectorsList.firstNameField).clear().type("teste")
+    cy.get(selectorsList.midleNameField).clear().type("grande")
+    cy.get(selectorsList.lastNameField).clear().type("teste")
     cy.get(selectorsList.genericField).eq(3).clear().type("3109")
+    cy.get(selectorsList.genericField).eq(4).clear().type("3109")
+    cy.get(selectorsList.genericField).eq(5).clear().type("3109")
+    cy.get(selectorsList.dateField).eq(0).clear().type("2026-10-22")
+    cy.get(selectorsList.dataCloseButton).click()
+    cy.get(selectorsList.dateField).eq(1).clear().type("2002-06-26")
+    cy.get(selectorsList.dataCloseButton).click()
+    cy.get(selectorsList.genericField).eq(8).clear().type("3109")
+    cy.get(selectorsList.submittButon).eq(0).click()
+    cy.get("body").should("contain", "Successfully Updated")
     }) 
 
     it('login - Fail', () => {
