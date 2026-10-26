@@ -15,25 +15,35 @@ class MyInfoPage {
      return selectors
 }
 
-fillMyInfoPage() {
-    cy.get(this.selectorsList().firstNameField).clear().type("teste")
-    cy.get(this.selectorsList().midleNameField).clear().type("grande")
-    cy.get(this.selectorsList().lastNameField).clear().type("teste")
-    cy.get(this.selectorsList().genericField).eq(3).clear().type("3109")
-    cy.get(this.selectorsList().genericField).eq(4).clear().type("3109")
-    cy.get(this.selectorsList().genericField).eq(5).clear().type("3109")
-    cy.get(this.selectorsList().dateField).eq(0).clear().type("2026-10-22")
+fillPersonalInfos(firstName, midleName, lastName, dateOfBirth) {
+    cy.get(this.selectorsList().firstNameField).clear().type(firstName)
+    cy.get(this.selectorsList().midleNameField).clear().type(midleName)
+    cy.get(this.selectorsList().lastNameField).clear().type(lastName)
+    cy.get(this.selectorsList().dateField).eq(1).clear().type(dateOfBirth)
     cy.get(this.selectorsList().dataCloseButton).click()
-    cy.get(this.selectorsList().dateField).eq(1).clear().type("2002-06-26")
+}
+
+fillEmployeeInfos(employeeId, otherId, driversLicense, driversLicenseDate) {
+    cy.get(this.selectorsList().genericField).eq(4).clear().type(employeeId)
+    cy.get(this.selectorsList().genericField).eq(5).clear().type(otherId)
+    cy.get(this.selectorsList().genericField).eq(6).clear().type(driversLicense)
+    cy.get(this.selectorsList().dateField).eq(0).clear().type(driversLicenseDate)
     cy.get(this.selectorsList().dataCloseButton).click()
-    cy.get(this.selectorsList().genericField).eq(8).clear().type("3109")
+}
+
+fillStatusInfos() {
     cy.get(this.selectorsList().genericComboBox).eq(0).click()
-    cy.get(this.selectorsList().nacionalittyButton).contains("Iraqi").click()
+    cy.get(this.selectorsList().nacionalittyButton).contains("Portuguese").click()
     cy.get(this.selectorsList().genericComboBox).eq(1).click()
     cy.get(this.selectorsList().MaritalStatusButton).contains("Single").click()
 }
 
-saveMyInfoLogin() {
+fillCustomFields(testField) {
+    cy.get(this.selectorsList().genericField).eq(9).clear().type(testField)
+}
+
+
+saveForm() {
     cy.get(this.selectorsList().submittButon).eq(0).click()
     cy.get("body").should("contain", "Successfully Updated")
 }

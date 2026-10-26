@@ -4,6 +4,9 @@ import DashboardPage from '../pages/dashboardPage.js'
 import MyInfoPage from '../pages/myInfoPage.js'
 import MenuPage from '../pages/menuPage.js'
 
+const Chance = require('chance');
+
+const chance = new Chance();
 const loginPage = new LoginPage()
 const dashboardPage = new DashboardPage()
 const myInfoPage = new MyInfoPage()
@@ -11,27 +14,20 @@ const menuPage = new MenuPage()
 
 describe('Orange HRM Tests', () => {
 
-const selectorsList = {
-  
-}
 
-  it.only('User info Update - Success', () => {
+  it('User Info Update - Success', () => {
  loginPage.accessLoginPage()
- loginPage.loginWithAnyUser(userData.userSucess.username, userData.userSucess.password)
+ loginPage.loginWithAnyUser(userData.userSuccess.username, userData.userSuccess.password)
 
  dashboardPage.confirmDashboardPage()
 
  menuPage.accessMyInfo()
- 
- myInfoPage.fillMyInfoPage()
- myInfoPage.saveMyInfoLogin()
+
+ myInfoPage.fillPersonalInfos(chance.first(), "Benedito", chance.last(), "2002-26-06")
+ myInfoPage.fillEmployeeInfos("0101", "0202", "03 03", "2000-04-03")
+ myInfoPage.fillStatusInfos()
+ myInfoPage.fillCustomFields("testezinho")
+ myInfoPage.saveForm()
     }) 
 
-    it('login - Fail', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorsList.usernameField).type(userData.userFail.username)
-    cy.get(selectorsList.passwordField).type(userData.userFail.password)
-    cy.get(selectorsList.loginButton).click()
-    cy.get(selectorsList.wrongCredentialAlert)
-  })
 })

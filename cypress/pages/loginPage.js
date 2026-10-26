@@ -20,6 +20,10 @@ loginWithAnyUser(username, password) {
 
 }
 
+checkAccessInvalid() {
+ cy.get(this.selectorsList().wrongCredentialAlert)
+}
+   
 }
 
 export default LoginPage
